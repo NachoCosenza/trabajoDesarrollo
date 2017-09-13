@@ -37,11 +37,7 @@ public class pj : MonoBehaviour
         // salto
         if (puedosaltar)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                puedosaltar = false;
-                rb.AddForce(Vector3.up * saltomaximo);
-            }
+           
         }
 		
 
@@ -85,6 +81,12 @@ public class pj : MonoBehaviour
 	{
 		// salto
 		puedosaltar = true;
-	}
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            puedosaltar = false;
+            rb.AddForce(Vector3.up * saltomaximo);
+        }
+    }
 
 }

@@ -14,7 +14,7 @@ public class score
 	static public void contador(int a)
 	{
 		puntos = puntos + a;
-		Debug.Log (puntos);
+		//Debug.Log (puntos);
 	}
 
 	void Update () 
