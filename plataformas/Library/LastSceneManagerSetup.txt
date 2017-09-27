@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/plataforma.unity
+- path: Assets/escenas/plataforma.unity
   isLoaded: 1
   isActive: 1

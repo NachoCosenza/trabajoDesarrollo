@@ -19,9 +19,12 @@ public class pj : MonoBehaviour
     float contador2 = 0;
     float gravedad = 7.5f;
 
+    bool salto = false;
+    bool saltando = false;
 
 
-    void Start()
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
 		box = GetComponent<BoxCollider>();
@@ -35,14 +38,10 @@ public class pj : MonoBehaviour
 		rb.AddForce(Vector3.down * gravedad);
 
         // salto
-        if (puedosaltar)
-        {
-           
-        }
-		
-
-		// forma cubito
-		if (Input.GetKeyDown(KeyCode.S))
+        
+        
+        // forma cubito
+        if (Input.GetKeyDown(KeyCode.S))
         {
             transform.localScale = new Vector3(1F, 1, 1);
             saltomaximo = 250;
@@ -75,18 +74,35 @@ public class pj : MonoBehaviour
 			saltomaximo = 400;
 			transform.localScale = new Vector3(1F, 2.5f, 1);
 		}
-    }
 
-	private void OnCollisionStay(Collision collisionInfo)
-	{
-		// salto
-		puedosaltar = true;
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !saltando)
         {
-            puedosaltar = false;
-            rb.AddForce(Vector3.up * saltomaximo);
+            salto = true;
+            saltando = true;
         }
+
+
     }
+
+    void FixedUpdate()
+    {
+        if (salto)
+        {
+            rb.AddForce(Vector3.up * 4, ForceMode.Impulse);
+            salto = false;
+        }
+
+        //rb.AddForce(Vector3.down);
+    }
+
+    private void OnCollisionEntrer(Collision collisionInfo)
+    {
+        // salto
+        saltando = false;
+    }
+
+   
+
+
 
 }
