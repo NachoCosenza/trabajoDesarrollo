@@ -12,8 +12,8 @@ public class pj : MonoBehaviour
     public int inpulsoDesendiente = 40;
 
 	int contador = 0;
-	int inpulsoinicial = 44;
-	int saltomaximo = 400;
+	float inpulsoinicial = 44;
+	float saltomaximo = 6.3f;
 	bool puedosaltar = false;
 
     float contador2 = 0;
@@ -35,7 +35,7 @@ public class pj : MonoBehaviour
     {
 		// gravedad
 
-		rb.AddForce(Vector3.down * gravedad);
+		
 
         // salto
         
@@ -44,7 +44,7 @@ public class pj : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             transform.localScale = new Vector3(1F, 1, 1);
-            saltomaximo = 250;
+            saltomaximo = 3.5f;
 
             if (Input.GetKey(KeyCode.S))
             {
@@ -54,7 +54,7 @@ public class pj : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.S))
         {
-            saltomaximo = 400;
+            saltomaximo = 6.3f;
             transform.localScale  = new Vector3(1F, 2.5f, 1);
 
         }
@@ -71,14 +71,17 @@ public class pj : MonoBehaviour
 		if (Input.GetKeyUp(KeyCode.D))
 		{
 			gravedad = 7.5f;
-			saltomaximo = 400;
+			saltomaximo = 6.3f;
 			transform.localScale = new Vector3(1F, 2.5f, 1);
 		}
 
-        if (Input.GetKeyDown(KeyCode.Space) && !saltando)
+        if (!saltando)
         {
-            salto = true;
-            saltando = true;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                salto = true;
+                saltando = true;
+            }
         }
 
 
@@ -86,19 +89,27 @@ public class pj : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (salto)
+
+       
+
+        rb.AddForce(Vector3.down * gravedad);
+
+        if (salto && !saltando)
         {
-            rb.AddForce(Vector3.up * 4, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * saltomaximo, ForceMode.Impulse);
             salto = false;
+            saltando = true;
+            print("salto");
         }
 
         //rb.AddForce(Vector3.down);
     }
 
-    private void OnCollisionEntrer(Collision collisionInfo)
+    private void OnCollisionStay(Collision collisionInfo)
     {
         // salto
         saltando = false;
+        print ("hola"); 
     }
 
    

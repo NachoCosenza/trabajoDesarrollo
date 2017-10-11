@@ -20,13 +20,13 @@ public class trigger : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        print("entro al trigger");
-        Debug.Log(col.name + " has entered the trigger zone of " + this.name);
+        //print("entro al trigger");
+        //Debug.Log(col.name + " has entered the trigger zone of " + this.name);
 
         if (col.CompareTag("jugador"))
         {
            // gameObject.SetActive(false);
-            print("se apaga");
+            //print("se apaga");
 
             SceneManager.LoadScene(nombreDeEscena);
         }

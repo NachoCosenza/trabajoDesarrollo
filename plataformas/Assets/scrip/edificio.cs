@@ -28,11 +28,11 @@ public class edificio : MonoBehaviour {
    void OnTriggerEnter(Collider col)
     {
         print("entro al trigger");
-        Debug.Log(col.name + " has entered the trigger zone of " + this.name);
+        //Debug.Log(col.name + " has entered the trigger zone of " + this.name);
 
 		DestroyObject(gameObject,3f);
            // this.gameObject.SetActive(false);
-            print("se apaga");
+            //print("se apaga");
         
 
             
