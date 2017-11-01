@@ -14,7 +14,7 @@ public class retroceso : MonoBehaviour {
 	void Update ()
     {
         //print(rb.velocity.z + " z");
-        print(rb.velocity.x + " x");
+        //print(rb.velocity.x + " x");
        // print(rb.velocity.y + " y "  );
 
 	}

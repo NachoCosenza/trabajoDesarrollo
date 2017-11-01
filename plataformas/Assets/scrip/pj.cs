@@ -6,74 +6,35 @@ public class pj : MonoBehaviour
 {
 
     private Rigidbody rb;
-	private BoxCollider box;
-	private MeshRenderer ren;
+    private BoxCollider box;
+    private MeshRenderer ren;
     public int fuerza;
-    public int inpulsoDesendiente = 40;
+    public int inpulsoDesendiente = 28;
 
-	int contador = 0;
-	float inpulsoinicial = 44;
-	float saltomaximo = 6.3f;
-	bool puedosaltar = false;
+    int contador = 0;
+    float inpulsoinicial = 44;
+    float saltomaximo = 6.3f;
+    bool puedosaltar = false;
 
     float contador2 = 0;
     float gravedad = 7.5f;
 
     bool salto = false;
     bool saltando = false;
+    int cont = 0;
 
 
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-		box = GetComponent<BoxCollider>();
-		ren = GetComponent<MeshRenderer>();
+        box = GetComponent<BoxCollider>();
+        ren = GetComponent<MeshRenderer>();
     }
+
 
     void Update()
     {
-		// gravedad
-
-		
-
-        // salto
-        
-        
-        // forma cubito
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            transform.localScale = new Vector3(1F, 1, 1);
-            saltomaximo = 3.5f;
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                rb.AddForce(Vector3.down * inpulsoDesendiente);
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            saltomaximo = 6.3f;
-            transform.localScale  = new Vector3(1F, 2.5f, 1);
-
-        }
-
-		// forma plano
-
-		if (Input.GetKeyDown(KeyCode.D))
-		{
-			transform.localScale = new Vector3(1F, 1, 0.2f);
-			saltomaximo = 0;
-			gravedad = 5;
-		}
-
-		if (Input.GetKeyUp(KeyCode.D))
-		{
-			gravedad = 7.5f;
-			saltomaximo = 6.3f;
-			transform.localScale = new Vector3(1F, 2.5f, 1);
-		}
 
         if (!saltando)
         {
@@ -84,36 +45,77 @@ public class pj : MonoBehaviour
             }
         }
 
-
     }
 
     void FixedUpdate()
     {
-
-       
+        FormaCubo();
+        FormaPlano();
+        FormaNormal();
 
         rb.AddForce(Vector3.down * gravedad);
+        
 
-        if (salto && !saltando)
+        if ((salto && !saltando))
         {
-            rb.AddForce(Vector3.up * saltomaximo, ForceMode.Impulse);
             salto = false;
-            saltando = true;
-            print("salto");
+            saltando = false;
+            rb.AddForce(Vector3.up * saltomaximo, ForceMode.Impulse);
+           
+           
         }
 
-        //rb.AddForce(Vector3.down);
+        
     }
 
     private void OnCollisionStay(Collision collisionInfo)
     {
+        
         // salto
-        saltando = false;
-        print ("hola"); 
+       salto = true;
+       saltando = false;
+       // print("asd");
+
     }
 
-   
+    public void FormaCubo()
+    {
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.localScale = new Vector3(1F, 1, 1);
+            saltomaximo = 3.5f;
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                rb.AddForce(Vector3.down * inpulsoDesendiente);
+            }
+        }
+
+        
+    }
+
+    public void FormaPlano()
+    {
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.localScale = new Vector3(1F, 1, 0.2f);
+            saltomaximo = 0;
+            gravedad = 5;
+        }
+
+        
+    }
 
 
+    public void FormaNormal()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            gravedad = 7.5f;
+            saltomaximo = 6.3f;
+            transform.localScale = new Vector3(1F, 2.5f, 1);
+        }
 
+
+    }
 }
